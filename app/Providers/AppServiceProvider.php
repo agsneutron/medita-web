@@ -22,11 +22,11 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {                                                                                                                           
         // Configuration dates in spanish
 //        Carbon::setUTF8(true);
 //        Carbon::setlocale('es');
         setlocale(LC_ALL, 'es_US.utf8');
-        \URL::forceScheme('https');
+        //\URL::forceScheme('https');
     }
 }
