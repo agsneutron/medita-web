@@ -1,0 +1,44 @@
+:root {
+  --color-gray: #A6A5A5;
+  --color-violet: #A3326D;
+  --color-purple: #62457F;
+}
+
+.text-gray {
+  color: var(--color-gray) !important;
+}
+
+.text-violet {
+  color: var(--color-violet) !important;
+}
+
+.bg-purple {
+  background: var(--color-purple) !important;
+}
+
+.px-3rem {
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+
+.max-h-100vh {
+  max-height: 100vh;
+}
+
+.v-btn {
+  text-transform: none !important;
+}
+
+.v-dialog {
+  text-align: right !important;
+}
+
+.v-card {
+  text-align: left !important;
+}
+
+.btn-close {
+  position: fixed !important;
+  top: 0 !important;
+  opacity: 1 !important;
+}

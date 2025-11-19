@@ -1,0 +1,20 @@
+#Date of new migration, migrations will run if the time is 5 minutes or less
+#MIGRATION_DATETIME="2024-06-26 10:35:00"
+
+#Date of new seeders, seeders will only run if the time is 5 minutes or less
+#SEEDS_DATETIME="2024-07-31 11:35:00"
+
+#Set to all if all seeders need to run
+#SEED_TO_RUN="all"
+
+# Set the array to the classes
+# to run SEED_TO_RUN=("PaymentSeeder" "Class2" "Class3") note the space " "
+#declare -a SEED_TO_RUN=("UpdateCategoryWWSeeder")
+
+
+#--- WARNING ---
+#---------------
+#Only enable it with caution to prevent data loss!!
+#REFRESH_DATETIME="2023-03-15 16:20:00"
+#---------------
+#--- WARNING ---

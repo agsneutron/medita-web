@@ -1,0 +1,96 @@
+@import "./commons/colors";
+@import "commons/scrollbar";
+
+.px-3rem {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+}
+
+.max-h-100vh {
+    max-height: 100vh;
+}
+
+.h-auto {
+    height: auto !important;
+}
+
+.h-100px {
+    height: 100px !important;
+}
+
+.h-95 {
+    height: 95% !important;
+}
+
+.h-30vh {
+    height: 30vh !important;
+}
+
+.v-btn {
+    text-transform: none !important;
+}
+
+.v-dialog {
+    text-align: right !important;
+}
+
+.v-card {
+    text-align: left !important;
+}
+
+.btn-close {
+    position: fixed !important;
+    top: 0 !important;
+    opacity: 1 !important;
+}
+
+.btn-close-center {
+    position: fixed !important;
+    top: calc(50vh - 150px) !important;
+    opacity: 1 !important;
+}
+
+.btn-close-setting {
+    position: fixed !important;
+    top: calc(50vh - 40%) !important;
+    opacity: 1 !important;
+}
+
+.btn-close-dashboard {
+    position: fixed !important;
+    top: calc(60vh - 220px) !important;
+    opacity: 1 !important;
+}
+
+.btn-close-program {
+    position: fixed !important;
+    top: calc(50vh - 240px) !important;
+    opacity: 1 !important;
+}
+
+.w-30px {
+    width: 30px !important;
+}
+
+.w-100px {
+    max-width: 100px !important;
+}
+
+.opacity-5 {
+    opacity: 0.5 !important;
+}
+
+.opacity-1 {
+    opacity: 1 !important;
+}
+
+.dotted {
+    border-style: dotted !important;
+    border-width: 2px;
+    border-radius: 5px;
+}
+
+.vue-dropzone>.dz-preview .dz-image {
+    width: 150px !important;
+    height: 150px !important;
+}

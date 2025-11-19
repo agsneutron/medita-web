@@ -1,0 +1,18 @@
+:root{
+    --color-gray: #A6A5A5;
+    --color-violet: #A3326D;
+    --color-purple: #62457F;
+}
+
+.text-gray{
+    color: var(--color-gray) !important;
+}
+.text-violet{
+    color: var(--color-violet) !important;
+}
+.text-purple{
+    color: var(--color-purple) !important;
+}
+.bg-purple{
+    background: var(--color-purple) !important;
+}

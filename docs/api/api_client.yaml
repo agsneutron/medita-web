@@ -1,0 +1,1093 @@
+openapi: 3.0.3
+info:
+  title: Lifefullness Client Api
+  description: API to be consumed by client apps
+  version: "1.0"
+
+servers:
+  - url: https://lifefullness-web.dev.satoritech.com.mx/api/client
+    description: Lifefullness client end points
+tags:
+  - name: Auth
+  - name: News
+  - name: Programs
+  - name: Audios
+  - name: Emotional Statistics
+  - name: Settings
+  - name: Questions
+  - name: Cards
+  - name: ShoppingCart
+  - name: Contribution
+  - name: Progress
+  - name: Evaluation
+
+
+
+
+#/////Components
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    GenericResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+    Clients:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        last_name:
+          type: string
+        second_last_name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        image:
+          type: string
+        third_id:
+          type: integer
+    Stops:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+#////Paths
+paths:
+  /login:
+    post:
+      summary: Login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example:
+                    leonardo.g.satoritech@gmail.com
+                password:
+                  type: string
+                  example:
+                    prueba2022
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+  /genders:
+    get:
+      summary: Get genders
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /validate-code/{code}:
+    get:
+      summary: Validate code
+      tags:
+        - Auth
+      parameters:
+        - in: path
+          name: code
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /educational-levels:
+    get:
+      summary: Get educational levels
+      tags:
+        - Auth
+
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  /levels/{educationalLevel}:
+    get:
+      summary: Get levels
+      tags:
+        - Auth
+      parameters:
+        - in: path
+          name: educationalLevel
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+
+  /register:
+    post:
+      summary: Registry
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                img:
+                  type: string
+                  format: binary
+                payload:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    last_name:
+                      type: string
+                    second_last_name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    age:
+                      type: integer
+                    gender_id:
+                      type: integer
+                    phone:
+                      type: string
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /remove:
+    post:
+      summary: Remove account only with active in false
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #//////////////////////////////////////////////////////
+  /modify:
+    post:
+      summary: Modify user
+      tags:
+        - Auth
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                img:
+                  type: string
+                  format: binary
+                payload:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    last_name:
+                      type: string
+                    second_last_name:
+                      type: string
+                    password:
+                      type: string
+                    age:
+                      type: integer
+                    gender_id:
+                      type: integer
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /password-recovery:
+    post:
+      summary: Password recovery
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example:
+                    test@test.com
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+
+
+  #////////////////////////////////////////////////////////////////////
+  /login-third:
+    post:
+      summary: Login with third
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example:
+                    test@test.com
+                name:
+                  type: string
+                  example:
+                    name
+                last_name:
+                  type: string
+                  example:
+                    last name
+                second_last_name:
+                  type: string
+                  example:
+                    second last name
+                third_id:
+                  type: string
+                  example:
+                    a6c6hhm
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+
+
+
+  #////////////////////////////////////////////////////////////////////
+  /news:
+    get:
+      summary: Get news
+      tags:
+        - News
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+
+  #////////////////////////////////////////////////////////////////////
+  /category/{category}:
+    get:
+      summary: Get guided meditations
+      tags:
+        - Programs
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: path
+          name: category
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /audio-list/{phase}:
+    get:
+      summary: Get guided meditations
+      tags:
+        - Programs
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: path
+          name: phase
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /high-tech-audio/{phase}:
+    get:
+      summary: Get guided meditations
+      tags:
+        - Programs
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: path
+          name: phase
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /phases-with-audio/{category}:
+    get:
+      summary: Get phases with audio
+      tags:
+        - Programs
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: path
+          name: category
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /emotional-statistics:
+    post:
+      summary: Emotional statistics register
+      tags:
+        - Emotional Statistics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sleep_better:
+                  type: boolean
+                  example:
+                    true
+                reduce_anxiety:
+                  type: boolean
+                  example:
+                    true
+                learn_meditate:
+                  type: boolean
+                  example:
+                    true
+                certify_meditation:
+                  type: boolean
+                  example:
+                    true
+                another:
+                  type: boolean
+                  example:
+                    true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+  /activate-card:
+    post:
+      summary: Activate card
+      tags:
+        - Cards
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example:
+                    1
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+  /terms:
+    get:
+      summary: Get terms
+      tags:
+        - Settings
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /privacy:
+    get:
+      summary: Get privacy
+      tags:
+        - Settings
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /questions:
+    get:
+      summary: Get questions
+      tags:
+        - Questions
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /answers:
+    get:
+      summary: Get answers
+      tags:
+        - Questions
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+
+
+  /client-question:
+    post:
+      summary: Client question register
+      tags:
+        - Questions
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_answer:
+                  type: array
+                  example:
+                    [
+                      {question_id: 1, answer_id: 1 }
+                    ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+  /verify-answers/{count}:
+    get:
+      summary: Verify if user with program school has complete all the form ( 1 when is the first audio in the first phase and 2 when is the last phase and the last audio)
+      parameters:
+        - in: path
+          name: count
+          schema:
+            type: integer
+            minimum: 1
+          required: true
+          description: Numeric ID of the time to verify
+      tags:
+        - Questions
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+
+  /create-card:
+    post:
+      summary: Create card
+      tags:
+        - Cards
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_number:
+                  type: string
+                  example:
+                    4242424242424242
+                month:
+                  type: string
+                  example:
+                    12
+                year:
+                  type: string
+                  example:
+                    24
+                cvv:
+                  type: string
+                  example:
+                    123
+                owner:
+                  type: string
+                  example:
+                    Nombre Apellido Apellido
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+
+  #////////////////////////////////////////////////////////////////////
+  /cards:
+    get:
+      summary: Get cards
+      tags:
+        - Cards
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+  #////////////////////////////////////////////////////////////////////
+  /shopping-cart:
+    get:
+      summary: Get shoppingCart
+      tags:
+        - ShoppingCart
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: 'Bad request.'
+        '5XX':
+          description: 'Unexpected error.'
+
+  #////////////////////////////////////////////////////////////////////
+
+  /add-to-cart:
+    post:
+      summary: Add to shopping cart
+      tags:
+        - ShoppingCart
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audio_id:
+                  type: integer
+                  example:
+                    1
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+
+  /delete-to-cart:
+    post:
+      summary: Delete to shopping cart
+      tags:
+        - ShoppingCart
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example:
+                    1
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+
+  /contribution:
+    post:
+      summary: Make contribution
+      tags:
+        - Contribution
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_id:
+                  type: integer
+                  example:
+                    1
+                product_list:
+                  type: array
+                  example:
+                    [
+                      1 ,
+                      2 ,
+                      3
+                    ]
+
+                is_shopping_cart:
+                  type: boolean
+                  example:
+                    false
+                cvv:
+                  type: string
+                  example:
+                    123
+                payment_method:
+                  type: integer
+                  example:
+                    1
+                token:
+                  type: string
+                  example:
+                    "paypal_324923949234i3"
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+  /contributions:
+    get:
+      summary: Get contribution User Auth
+      tags:
+        - Contribution
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #///////////////////////////////////////////////////////////////////
+  /register-audio:
+    post:
+      summary: Register progress
+      tags:
+        - Progress
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audio_id:
+                  type: integer
+                  example:
+                    1
+                complete:
+                  type: boolean
+                  example:
+                    false
+                duration:
+                  type: integer
+                  example:
+                    10
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+
+  /progress:
+    get:
+      summary: Get progress
+      tags:
+        - Progress
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #/////////////////////////////////////////////////////////////////////
+  /register-phase:
+    post:
+      summary: Register user phase
+      tags:
+        - Progress
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phase_id:
+                  type: integer
+                  example:
+                    1
+      responses:
+        '200':
+            description: 'Request successful'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal Error'
+
+
+
+  #////////////////////////////////////////////////////////////////////
+
+  /verify-evaluation/{id}:
+    get:
+      summary: Get progress
+      tags:
+        - Progress
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - in: path
+          name: id
+          required: true
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+  #////////////////////////////////////////////////////////////////////
+
+  /evaluation:
+    post:
+      summary: Get progress
+      tags:
+        - Progress
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audio_id:
+                  type: integer
+                  example:
+                    1
+                score:
+                  type: number
+                  example:
+                    1.0
+                description:
+                  type: string
+                  example:
+                    descripcion
+      responses:
+        '200':
+          description: 'Request successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '4XX':
+          description: 'Bad request'
+        '5XX':
+          description: 'Internal error'
+
+
+
