@@ -1,1 +1,153 @@
-:root{--color-gray:#a6a5a5;--color-violet:#a3326d;--color-purple:#62457f}.text-gray{color:var(--color-gray)!important}.text-violet{color:var(--color-violet)!important}.text-purple{color:var(--color-purple)!important}.bg-purple{background:var(--color-purple)!important}.invisible-scrollbar,.mostly-customized-scrollbar,.visible-scrollbar{display:block;height:90vh;overflow:auto;width:auto}.invisible-scrollbar::-webkit-scrollbar{display:none}.mostly-customized-scrollbar::-webkit-scrollbar{background-color:#fff;height:8px;width:5px}.mostly-customized-scrollbar::-webkit-scrollbar-thumb{background:#a3326d}.invisible-scrollbar-70{display:block;height:70vh;overflow:auto;width:auto}.invisible-scrollbar-70::-webkit-scrollbar{display:none}.invisible-scrollbar::-webkit-scrollbar-track{color:transparent}.px-3rem{padding-left:3rem!important;padding-right:3rem!important}.max-h-100vh{max-height:100vh}.h-auto{height:auto!important}.h-100px{height:100px!important}.h-95{height:95%!important}.h-30vh{height:30vh!important}.v-btn{text-transform:none!important}.v-dialog{text-align:right!important}.v-card{text-align:left!important}.btn-close{top:0!important}.btn-close,.btn-close-center{opacity:1!important;position:fixed!important}.btn-close-center{top:calc(50vh - 150px)!important}.btn-close-setting{top:calc(50vh - 40%)!important}.btn-close-dashboard,.btn-close-setting{opacity:1!important;position:fixed!important}.btn-close-dashboard{top:calc(60vh - 220px)!important}.btn-close-program{opacity:1!important;position:fixed!important;top:calc(50vh - 240px)!important}.w-30px{width:30px!important}.w-100px{max-width:100px!important}.opacity-5{opacity:.5!important}.opacity-1{opacity:1!important}.dotted{border-radius:5px;border-style:dotted!important;border-width:2px}.vue-dropzone>.dz-preview .dz-image{height:150px!important;width:150px!important}
+:root {
+  --color-gray: #A6A5A5;
+  --color-violet: #A3326D;
+  --color-purple: #62457F;
+}
+
+.text-gray {
+  color: var(--color-gray) !important;
+}
+
+.text-violet {
+  color: var(--color-violet) !important;
+}
+
+.text-purple {
+  color: var(--color-purple) !important;
+}
+
+.bg-purple {
+  background: var(--color-purple) !important;
+}
+
+.visible-scrollbar,
+.invisible-scrollbar,
+.mostly-customized-scrollbar {
+  display: block;
+  width: auto;
+  overflow: auto;
+  height: 90vh;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.mostly-customized-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #ffffff;
+}
+
+.mostly-customized-scrollbar::-webkit-scrollbar-thumb {
+  background: #A3326D;
+}
+
+.invisible-scrollbar-70 {
+  display: block;
+  width: auto;
+  overflow: auto;
+  height: 70vh;
+}
+
+.invisible-scrollbar-70::-webkit-scrollbar {
+  display: none;
+}
+
+.invisible-scrollbar::-webkit-scrollbar-track {
+  color: transparent;
+}
+
+.px-3rem {
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+
+.max-h-100vh {
+  max-height: 100vh;
+}
+
+.h-auto {
+  height: auto !important;
+}
+
+.h-100px {
+  height: 100px !important;
+}
+
+.h-95 {
+  height: 95% !important;
+}
+
+.h-30vh {
+  height: 30vh !important;
+}
+
+.v-btn {
+  text-transform: none !important;
+}
+
+.v-dialog {
+  text-align: right !important;
+}
+
+.v-card {
+  text-align: left !important;
+}
+
+.btn-close {
+  position: fixed !important;
+  top: 0 !important;
+  opacity: 1 !important;
+}
+
+.btn-close-center {
+  position: fixed !important;
+  top: calc(50vh - 150px) !important;
+  opacity: 1 !important;
+}
+
+.btn-close-setting {
+  position: fixed !important;
+  top: calc(50vh - 40%) !important;
+  opacity: 1 !important;
+}
+
+.btn-close-dashboard {
+  position: fixed !important;
+  top: calc(60vh - 220px) !important;
+  opacity: 1 !important;
+}
+
+.btn-close-program {
+  position: fixed !important;
+  top: calc(50vh - 240px) !important;
+  opacity: 1 !important;
+}
+
+.w-30px {
+  width: 30px !important;
+}
+
+.w-100px {
+  max-width: 100px !important;
+}
+
+.opacity-5 {
+  opacity: 0.5 !important;
+}
+
+.opacity-1 {
+  opacity: 1 !important;
+}
+
+.dotted {
+  border-style: dotted !important;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.vue-dropzone > .dz-preview .dz-image {
+  width: 150px !important;
+  height: 150px !important;
+}

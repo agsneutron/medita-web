@@ -45,7 +45,7 @@ class AudioWS extends JsonResource
             'price' => $this->price,
             'complete' => $client->teacher == 0 ? $completed : true,
             'active' => $this->active,
-            'included'=> $included
+            'included'=> $this->is_free //$included
         ];
 
         return  $property;

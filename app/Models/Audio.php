@@ -84,7 +84,8 @@ class Audio extends Model
 		'active',
 		'restriction_id',
 		'phase_id',
-		'price'
+		'price',
+		'is_free'
 	];
 
     public static function getFillables(){

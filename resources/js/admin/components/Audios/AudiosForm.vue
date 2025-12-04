@@ -198,7 +198,7 @@
                         </v-row>
                        <v-row justify="center" style="margin: 1rem 0rem;">
                             <v-col cols="4" class="p-0 dropzoneTitle">
-                                <p class="m-0 pink-text"> Adjuntarrr audio </p>
+                                <p class="m-0 pink-text"> Adjuntar audio </p>
                             </v-col>
                             <v-col cols="8" class="py-0" style="text-align: center;">
                                 <vue2-dropzone
@@ -225,6 +225,19 @@
                                 </vue2-dropzone>
                             </v-col>
                         </v-row>
+
+                        <!-- ⭐ Nuevo Toggle Button -->
+                        <v-row justify="center" class="mt-4">
+                            <v-col cols="12" class="py-0 text-center">
+                                <v-switch
+                                    v-model="is_free"
+                                    color="#62457F"
+                                    inset
+                                    label="Este audio es gratis!!!"
+                                ></v-switch>
+                            </v-col>
+                        </v-row>
+
                         <v-row>
                             <v-col cols="12" class="py-0 text-center" style="margin-top: 1rem">
                                 <v-btn color="#62457F" dark width="12rem" @click="submit" :loading="isLoading">
@@ -289,6 +302,7 @@ export default {
             restriction_id: null,
             phase_id: this.$route.params.id_phase,
             category_id: parseInt(this.$route.params.id),
+            is_free:false,
 
             //Rules Form,
             rules: {
@@ -408,7 +422,7 @@ export default {
             this.resetForm();
         },
         updateData(dataUpdate) {
-            // console.log(dataUpdate)
+            console.log(dataUpdate)
             this.number = dataUpdate.number;
             this.name = dataUpdate.name;
             this.price = dataUpdate.price;
@@ -420,6 +434,7 @@ export default {
             this.url_gif = dataUpdate.url_gif;
             this.old_url_gif = dataUpdate.url_gif;
             this.description = dataUpdate.description;
+            this.is_free = dataUpdate.is_free == 1;
             this.restriction_id = dataUpdate.restriction_id;
             this.category_id;
             try { this.dzUploadImage(); }catch (e) {}
@@ -505,6 +520,8 @@ export default {
             formData.append('url_gif', this.url_gif);
             formData.append('restriction_id', this.restriction_id);
             formData.append('phase_id', this.phase_id);
+            formData.append('is_free', this.is_free ? 1 : 0);
+            
             return formData;
         },
         validateDropzones(){
