@@ -31,6 +31,8 @@ class AudioWS extends JsonResource
         $clientAudio = $this->clientAudio->where('audios_id', $this->id)->first();
         $completed = $clientAudio ? $clientAudio->completed : false;
 
+        $includedIF=$this->is_free == 1;
+
         $property = [
             'id' => $this->id,
             'name' => $payment?$this->name:$withOutPaymentName[0],
@@ -45,7 +47,7 @@ class AudioWS extends JsonResource
             'price' => $this->price,
             'complete' => $client->teacher == 0 ? $completed : true,
             'active' => $this->active,
-            'included'=> $this->is_free //$included
+            'included'=> $includedIF
         ];
 
         return  $property;
