@@ -89,6 +89,7 @@ class AudioController extends Controller
                 DB::beginTransaction();
                 $audio = Audio::findOrNew($id);
                 $audio->fill($request->only(Audio::getFillables()));
+                $audio->free_level = json_decode($request->free_level, true);
                 $audio->saveOrFail();
                 DB::commit();
 

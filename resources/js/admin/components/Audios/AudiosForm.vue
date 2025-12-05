@@ -226,7 +226,7 @@
                             </v-col>
                         </v-row>
 
-                        <!-- ⭐ Nuevo Toggle Button -->
+                        <!-- Nuevo Toggle Button -->
                         <v-row justify="center" class="mt-4">
                             <v-col cols="12" class="py-0 text-center">
                                 <v-switch
@@ -236,6 +236,17 @@
                                     label="Este audio es gratis!!!"
                                 ></v-switch>
                             </v-col>
+                        </v-row>
+
+                        <v-row justify="center" class="mt-4" v-if="is_free">
+                            <v-select
+                                v-model="free_level"
+                                :items="listaOpciones"
+                                label="Para qué nivel es gratis?"
+                                item-value="value"
+                                multiple
+                                chips
+                            ></v-select>
                         </v-row>
 
                         <v-row>
@@ -283,6 +294,15 @@ export default {
         return {
             dialog: false,
             isLoading: false,
+
+            free_level: [],
+            listaOpciones: [
+                { text: 'Kinder', value: 1 },
+                { text: 'Primaria', value: 2 },
+                { text: 'Secundaria', value: 3 },
+                { text: 'Preparatoria', value: 4 },
+                { text: 'Universidad', value: 5 },
+            ],
 
             categoriasDePago: [0,8],
             categoriasSinRestriccion: [0,1,8],
@@ -409,6 +429,11 @@ export default {
         }
     },
     watch: {
+        is_free(val) {
+            if (!val) {
+                this.free_level = [];
+            }
+        }
     },
     methods: {
         resetForm() {
@@ -423,6 +448,17 @@ export default {
         },
         updateData(dataUpdate) {
             console.log(dataUpdate)
+            // Si el backend manda null o vacío
+            if (!dataUpdate.free_level) {
+                this.free_level = [];
+                return;
+            }
+
+            // Asegurar que sea array real
+            let opciones = Array.isArray(dataUpdate.free_level)
+                ? dataUpdate.free_level
+                : JSON.parse(dataUpdate.free_level);
+
             this.number = dataUpdate.number;
             this.name = dataUpdate.name;
             this.price = dataUpdate.price;
@@ -437,6 +473,7 @@ export default {
             this.is_free = dataUpdate.is_free == 1;
             this.restriction_id = dataUpdate.restriction_id;
             this.category_id;
+            this.free_level = opciones.map(v => Number(v));
             try { this.dzUploadImage(); }catch (e) {}
             try { this.dzUploadAUDIO(); }catch (e) {}
             try { this.dzUploadGIF(); }catch (e) {}
@@ -521,7 +558,7 @@ export default {
             formData.append('restriction_id', this.restriction_id);
             formData.append('phase_id', this.phase_id);
             formData.append('is_free', this.is_free ? 1 : 0);
-            
+            formData.append('free_level', JSON.stringify(this.free_level));
             return formData;
         },
         validateDropzones(){
