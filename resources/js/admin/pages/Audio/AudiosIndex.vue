@@ -5,6 +5,7 @@
             <AudiosForm :isUpdate="false" :restrictions="restrictions"/>
         </div>
         <SatoriTable
+            ref="table"
             :rows="rows"
             :total_rows="total_rows"
             :is_loading="isLoading"

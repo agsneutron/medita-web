@@ -10,6 +10,13 @@ export default {
                 page: 0,
             };
             this.fetchData();
+            this.$nextTick(() => {
+                if (this.$refs.table) {
+                    this.$refs.table.page = 1; // ← fuerzalo aquí
+                    this.$refs.table.emitQueryParams(0); // opcional, solo si tu tabla lo usa
+                    
+                }
+            });
         });
         bus.$on('on-change-query', (data) => {
             console.log("In change query");
