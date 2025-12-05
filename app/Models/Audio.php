@@ -68,7 +68,8 @@ class Audio extends Model
 		'active' => 'bool',
 		'isAlbum' => 'bool',
 		'restriction_id' => 'int',
-		'phase_id' => 'int'
+		'phase_id' => 'int',
+		'free_level' => 'array',
 	];
 
 	protected $fillable = [
