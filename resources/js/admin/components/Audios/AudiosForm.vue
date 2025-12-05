@@ -451,7 +451,7 @@ export default {
             // Si el backend manda null o vacío
             if (!dataUpdate.free_level) {
                 this.free_level = [];
-                return;
+                //return;
             }
 
             // Asegurar que sea array real
