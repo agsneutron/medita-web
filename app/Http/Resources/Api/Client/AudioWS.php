@@ -36,7 +36,7 @@ class AudioWS extends JsonResource
         $allowed = false;
 
         if ($client->educational_level !== null && !empty($this->free_level)) {
-            $allowed = in_array($client->educational_level, $this->free_level);
+            $allowed = in_array($client->educational_level->id, $this->free_level);
         }
         
         $isPayment=false;
