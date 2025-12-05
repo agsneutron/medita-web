@@ -33,7 +33,12 @@ class AudioWS extends JsonResource
 
         // start modified by Ags
         $includedIF=$this->is_free == 1;
-        $allowed = in_array($client->educational_level, $this->free_level);
+        $allowed = false;
+
+        if ($client->educational_level !== null && !empty($this->free_level)) {
+            $allowed = in_array($client->educational_level, $this->free_level);
+        }
+        
         $isPayment=false;
         if ($includedIF && allowed){
             $isPayment = $includedIF;
