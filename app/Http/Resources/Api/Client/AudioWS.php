@@ -40,7 +40,7 @@ class AudioWS extends JsonResource
         }
         
         $isPayment=false;
-        if ($includedIF && allowed){
+        if ($includedIF && $allowed){
             $isPayment = $includedIF;
         }else{
             $isPayment = !empty($payment);
