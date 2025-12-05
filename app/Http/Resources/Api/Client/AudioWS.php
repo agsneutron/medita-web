@@ -31,7 +31,15 @@ class AudioWS extends JsonResource
         $clientAudio = $this->clientAudio->where('audios_id', $this->id)->first();
         $completed = $clientAudio ? $clientAudio->completed : false;
 
+        // start modified by Ags
         $includedIF=$this->is_free == 1;
+        $isPayment=false;
+        if ($includedIF){
+            $isPayment = $includedIF;
+        }else{
+            $isPayment = !empty($payment);
+        }
+        // end modified by Ags
 
         $property = [
             'id' => $this->id,
@@ -43,7 +51,7 @@ class AudioWS extends JsonResource
             'url_gif' =>  asset($this->url_gif),
             'duration' =>  intval($this->duration) * 1000,
             'restriction' => $client->teacher == 0 ? $this->restriction_id : 2,
-            'payment' => !empty($payment),
+            'payment' => $isPayment, //!empty($payment), // Modified by Ags
             'price' => $this->price,
             'complete' => $client->teacher == 0 ? $completed : true,
             'active' => $this->active,
