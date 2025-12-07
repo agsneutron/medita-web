@@ -47,7 +47,10 @@ class AudioWS extends JsonResource
             $isPayment = $includedIF;
         }else{
             $isPayment = !empty($payment);
-            $includedIF = false;
+            if ($payment){
+                $includedIF=$this->payments[0]->price==0;
+            }
+            //$includedIF = false;
         }
         // end modified by Ags
 
@@ -65,7 +68,8 @@ class AudioWS extends JsonResource
             'price' => $this->price,
             'complete' => $client->teacher == 0 ? $completed : true,
             'active' => $this->active,
-            'included'=> $includedIF
+            'included'=> $includedIF,
+            'request'=> $request
         ];
 
         return  $property;
