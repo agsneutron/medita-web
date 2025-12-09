@@ -51,10 +51,14 @@ class AudiosController extends Controller
         ]);
     }
 
-    public function getHighTechAudio($phase)
+    public function getHighTechAudio(Request $request,$phase,$level = null)
     {
         /** @var Client $client */
         $client = \Auth::user();
+
+        $request->merge([
+            'level' => $level,
+        ]);
 
         $audiosList = Audio::with(
             ['payments' => function ($query) use ($client) {

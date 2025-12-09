@@ -21,6 +21,7 @@ class AudioWS extends JsonResource
         /** @var Client $client */
         $client = \Auth::user();
 
+
         $payment= $this->payments()->where('client_id', $client->id)->first();
         $withOutPaymentName= explode(" Track ",$this->name);
         $included=false;
@@ -34,12 +35,16 @@ class AudioWS extends JsonResource
         // start modified by Ags
         $includedIF=$this->is_free == 1;
         $allowed = false;
+        $level = $request->level; 
 
         if ($client->educational_level !== null && !empty($this->free_level)) {
             $allowed = in_array($client->educational_level->id, $this->free_level);
         }
         if ($client->teacher !== null && !empty($this->free_level)) {
-            $allowed = $client->teacher == 1;
+            //$allowed = $client->teacher == 1;
+            if ($level !== null) {
+                $allowed = in_array($level, $this->free_level);
+            }
         }
         
         $isPayment=false;
@@ -68,8 +73,7 @@ class AudioWS extends JsonResource
             'price' => $this->price,
             'complete' => $client->teacher == 0 ? $completed : true,
             'active' => $this->active,
-            'included'=> $includedIF,
-            'request'=> $request
+            'included'=> $includedIF
         ];
 
         return  $property;

@@ -60,7 +60,7 @@ Route::get('/category/{category}',[CategoriesController::class, 'getCategory']);
 Route::get('/categories',[CategoriesController::class, 'getCategories']);
 
 Route::get('/audio-list/{phase}',[AudiosController::class, 'getAudios']);
-Route::get('/high-tech-audio/{phase}',[AudiosController::class, 'getHighTechAudio']);
+Route::get('/high-tech-audio/{phase}/{level?}',[AudiosController::class, 'getHighTechAudio']);
 Route::get('/phases-with-audio/{category}',[AudiosController::class, 'phasesWithAudio']);
 
 //Terms and Conditions
